@@ -30,6 +30,121 @@ Loguear() {
 	echo "$WHEN-$USER-$WHERE-$1-$2" >> "$ARCH_LOG"  
 }
 
+reinstalar(){
+	echo "~ Inicio de la reinstalación del sistema ~"
+	Loguear "INF" "Inicio de la reinstalación del sistema"
+	if [ ! -d $DIRBIN ]
+	  then
+		echo "Directorio de Configuracion: $DIRBIN"
+		Loguear "INF" "Directorio de Configuracion: $DIRBIN"
+		mkdir --parents "$DIRBIN"
+	  else
+		echo "Directorio de Configuracion: $DIRBIN ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRBIN ya existe"
+	fi
+	if [ ! -d $DIRNOV ]
+	  then
+		echo "Directorio de Configuracion: $DIRNOV"
+		Loguear "INF" "Directorio de Configuracion: $DIRNOV"
+		mkdir --parents "$DIRNOV"
+	  else
+		echo "Directorio de Configuracion: $DIRNOV ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRNOV ya existe"
+	fi
+	if [ ! -d $DIROK ]
+	  then
+		echo "Directorio de Configuracion: $DIROK"
+		Loguear "INF" "Directorio de Configuracion: $DIROK"
+		mkdir --parents "$DIROK"
+	  else
+		echo "Directorio de Configuracion: $DIROK ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIROK ya existe"
+	fi
+	if [ ! -d $DIRNOK ]
+	  then
+		echo "Directorio de Configuracion: $DIRNOK"
+		Loguear "INF" "Directorio de Configuracion: $DIRNOK"
+		mkdir --parents "$DIRNOK"
+	  else
+		echo "Directorio de Configuracion: $DIRNOK ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRNOK ya existe"
+	fi
+	if [ ! -d $DIRVAL ]
+	  then
+		echo "Directorio de Configuracion: $DIRVAL"
+		Loguear "INF" "Directorio de Configuracion: $DIRVAL"
+		mkdir --parents "$DIRVAL"
+	  else
+		echo "Directorio de Configuracion: $DIRVAL ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRVAL ya existe"
+	fi
+	if [ ! -d $DIRREP ]
+	  then
+		echo "Directorio de Configuracion: $DIRREP"
+		Loguear "INF" "Directorio de Configuracion: $DIRREP"
+		mkdir --parents "$DIRREP"
+	  else
+		echo "Directorio de Configuracion: $DIRREP ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRREP ya existe"
+	fi
+	if [ ! -d $DIRLOG ]
+	  then
+		echo "Directorio de Configuracion: $DIRLOG"
+		Loguear "INF" "Directorio de Configuracion: $DIRLOG"
+		mkdir --parents "$DIRLOG"
+	  else
+		echo "Directorio de Configuracion: $DIRLOG ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRLOG ya existe"
+	fi
+	
+}
+
+chequeoVersionPerl(){
+	echo "Chequeo de la version de Perl"
+	Loguear "INF" "Chequeo de la version de Perl."
+	
+	if [ [ perl -v | grep -o -m 1 '[0-9]'| head -1 ] -lt 5 ]
+	then 
+		echo "La version es inferior a 5."
+		Loguear "WAR" "La version es inferior a 5."				
+	else 
+		echo "La version es es correcta."
+		Loguear "INF" "La version es correcta."
+	fi
+}
+
+update_reserved() {
+  RESERVED="$CONFDIR $DIRBIN $DIRMAE $DIRREP $DIROK $DIRNOV $DIRVAL $DIRLOG $DIRNOK" 
+}
+
+request_dirpath() {
+  	update_reserved
+  	local VALID="N"  
+  	while [ $VALID == "N" ]; do
+	    ## Prompt for directory
+	    read -p "$1" UINPUT 
+	    Loguear "INF" "$1 $UINPUT"
+	    ## Validate user input
+	    if [ ! -z "$UINPUT" -a "$UINPUT" != " " ]; then
+    	 	VALID="Y"
+     		for rname in $RESERVED; do
+				if [ $UINPUT == $rname ]; then
+	  				echo -e "\n# El nombre $UINPUT se encuentra reservado\n" >&2
+	  				Loguear "WAR" "El nombre $UINPUT se encuentra reservado"
+	  				VALID="N"
+	 	 			break
+				fi
+		    done
+      		## If name not reserved
+     		if [ $VALID == "Y" ]; then
+        		echo "$UINPUT"
+      		fi
+    	else
+      		VALID="Y"
+      		echo "$2"
+    	fi
+  	done
+}
 
 seteoVariables() {
 	#notAllow = "dirconf"
@@ -41,111 +156,24 @@ seteoVariables() {
 	Loguear "INF" "Ingrese un nuevo valor (en caso de carpetas, solo el nombre de la misma) o solo ENTER para mantener el valor por defecto."
 	echo
 
-	dirSinBarra="${DIRBIN%/*}"
-	while
-		printf "Defina el directorio de Ejecutables (default: ${dirSinBarra##*/}/): "		
-		read input
-		Loguear "INF" "Defina el directorio de Ejecutables (default: ${dirSinBarra##*/}/): " "$input"
+ 	## Request exec directory
+ 	DIRBIN=$(request_dirpath "Defina el directorio de Ejecutables ($DIRBIN): " $DIRBIN)
 
-		if [ "$input" != "" ]; then DIRBIN="$GRUPO""${input%/*}/"; else DIRBIN="$GRUPO""bin/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
+	## Request file directory
+	DIRMAE=$(request_dirpath "Defina el directorio de Maestros y Tablas ($DIRMAE): " $DIRMAE)
+ 	## Request updates directory
+	DIRNOV=$(request_dirpath "Defina el directorio de Recepcion de Novedades ($DIRNOV): " $DIRREC)
+ 	## Request accepted files directory
+ 	DIROK=$(request_dirpath "Defina el directorio de Archivos Aceptados ($DIROK): " $DIROK)
+	## Request processed files directory
+	DIRVAL=$(request_dirpath "Defina el directorio de Archivos Validados ($DIRVAL): " $DIRVAL)
+	## Request reports directory
+	DIRREP=$(request_dirpath "Defina el directorio de Reportes ($DIRREP): " $DIRREP)
+	## Request log directory
+	DIRLOG=$(request_dirpath "Defina el directorio de log ($DIRLOG): " $DIRLOG)
+	## Request rejected directory
+	DIRNOK=$(request_dirpath "Defina el directorio de rechazados ($DIRNOK): " $DIRNOK)
 
-	dirSinBarra="${DIRMAE%/*}"
-	while
-		printf "Defina el directorio de Archivos Maestros (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Archivos Maestros (default: ${dirSinBarra##*/}/): " "$input"
-
-		if [ "$input" != "" ]; then DIRMAE="$GRUPO""${input%/*}/"; else DIRME="$GRUPO""mae/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-
-	dirSinBarra="${DIRNOV%/*}"
-	while
-		printf "Defina el directorio de Recepcion de Novedades (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Recepcion de Novedades (default: ${dirSinBarra##*/}/): " "$input"
-
-		if [ "$input" != "" ]; then DIRNOV="$GRUPO""${input%/*}/"; else DIRNOV="$GRUPO""nov/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-	
-	dirSinBarra="${DIROK%/*}"
-	while
-		printf "Defina el directorio de Archivos Aceptados (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Archivos Aceptados (default: ${dirSinBarra##*/}/): " "$input"
-
-		if [ "$input" != "" ]; then DIROK="$GRUPO""${input%/*}/"; else DIROK="$GRUPO""ok/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-	
-	dirSinBarra="${DIRNOK%/*}"
-	while
-		printf "Defina el directorio de Archivos Rechazados (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Archivos Rechazados (default: ${dirSinBarra##*/}/): " "$input"	
-
-		if [ "$input" != "" ]; then DIRNOK="$GRUPO""${input%/*}/"; else DIRNOK="$GRUPO""nok/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-	
-	dirSinBarra="${DIRREP%/*}"
-	while
-		printf "Defina el directorio de Reportes (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Reportes (default: ${dirSinBarra##*/}/): " "$input"	
-
-		if [ "$input" != "" ]; then DIRREP="$GRUPO""${input%/*}/"; else DIRREP="$GRUPO""rep/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-
-	dirSinBarra="${DIRVAL%/*}"
-	while
-		printf "Defina el directorio de Archivos Validados (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Archivos Validados (default: ${dirSinBarra##*/}/): " "$input"
-
-		if [ "$input" != "" ]; then DIRVAL="$GRUPO""${input%/*}/"; else DIRVAL="$GRUPO""listos/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-
-	dirSinBarra="${DIRLOG%/*}"
-	while
-		printf "Defina el directorio de Logs (default: ${dirSinBarra##*/}/): "
-		read input
-		Loguear "INF" "Defina el directorio de Logs (default: ${dirSinBarra##*/}/): " "$input"
-
-		if [ "$input" != "" ]; then DIRLOG="$GRUPO""${input%/*}/"; else DIRLOG="$GRUPO""log/"; fi
-		if [ "$input" = "dirconf" ]; then 
-			echo "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."
-			Loguear "WAR" "El nombre $input se encuentra reservado. Por favor ingrese otro nombre."; fi
-		[ "$input" = "dirconf" ]
-	do :; done
-	
-	
 	clear
 	echo "DETALLE DE LA CONFIGURACIÓN:"
 	Loguear "INF" "DETALLE DE LA CONFIGURACIÓN:"
@@ -204,9 +232,9 @@ generarArchConfiguracion(){
 ################################################ REGION: PROGRAMA #########################################
 ###########################################################################################################
 
-echo "Inicio de la instalación"
-Loguear "INF" "Inicio de la instalación"
-
+echo "Chequeando instalacion previa"
+Loguear "INF" "Chequeando instalacion previa"
+> Instalador.log
 # Chequea instalacion previa
 if [ -e "$CONFDIR""$ARCH_CNF" ]
   then
@@ -230,17 +258,23 @@ if [ -e "$CONFDIR""$ARCH_CNF" ]
 	Loguear "INF" "Directorio de Archivos Validados: $DIRVAL"
 	echo "Directorio de Archivos Rechazados: $DIRNOK"
 	Loguear "INF" "Directorio de Archivos Rechazados: $DIRNOK"
-	echo "Fin del proceso."
-	Loguear "INF" "Fin del proceso."
+	if [ $1 = "-i" ]; then reinstalar; exit 0; fi
+	if [ $1 = "-t" ]; then exit 0; fi
 fi
 
-
+if [ $1 = "-t" ]
+  then 
+	echo "No existe una instalación previa."
+	Loguear "INF" "No existe una instalación previa."
+	exit 0
+fi
 
 echo
 echo "~ Inicio de instalación del sistema ~"
 Loguear "INF" "Inicio de instalación del sistema"
 echo "-------------------------------------------"
 echo
+chequeoVersionPerl
 seteoVariables
 echo
 echo "-------------------------------------------"
