@@ -116,7 +116,7 @@ Loguear "INF" "$MENSAJE: $INPUT"
 
 if [ "$INPUT" == "Si" ]
 then
-	./Demonio.sh&
+	./Demonio&
 	ID=$!
 	MENSAJE="Demonio corriendo bajo el no.: $ID"
 	Loguear "INF" "$MENSAJE"

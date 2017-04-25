@@ -7,7 +7,7 @@
 GRUPO=$(pwd)"/"
 
 WHERE="Instalador"
-CONFDIR=$GRUPO"/dirconf/"
+CONFDIR=$GRUPO"dirconf/"
 DIRBIN="$GRUPO""bin/"
 DIRMAE="$GRUPO""mae/"
 DIRNOV="$GRUPO""nov/"
@@ -34,6 +34,15 @@ Loguear() {
 reinstalar(){
 	echo "~ Inicio de la reinstalación del sistema ~"
 	Loguear "INF" "Inicio de la reinstalación del sistema"
+	if [ ! -d $ ]
+	  then
+		echo "Directorio de Configuracion: $CONFDIR"
+		Loguear "INF" "Directorio de Configuracion: $CONFDIR"
+		mkdir --parents "$CONFDIR"
+	  else
+		echo "Directorio de Configuracion: $CONFDIR ya existe"
+		Loguear "INF" "Directorio de Configuracion: $CONFDIR ya existe"
+	fi
 	if [ ! -d $DIRBIN ]
 	  then
 		echo "Directorio de Configuracion: $DIRBIN"
@@ -42,6 +51,15 @@ reinstalar(){
 	  else
 		echo "Directorio de Configuracion: $DIRBIN ya existe"
 		Loguear "INF" "Directorio de Configuracion: $DIRBIN ya existe"
+	fi
+	if [ ! -d $DIRMAE ]
+	  then
+		echo "Directorio de Configuracion: $DIRMAE"
+		Loguear "INF" "Directorio de Configuracion: $DIRMAE"
+		mkdir --parents "$DIRMAE"
+	  else
+		echo "Directorio de Configuracion: $DIRMAE ya existe"
+		Loguear "INF" "Directorio de Configuracion: $DIRMAE ya existe"
 	fi
 	if [ ! -d $DIRNOV ]
 	  then
@@ -129,16 +147,16 @@ request_dirpath() {
 	    if [ ! -z "$UINPUT" -a "$UINPUT" != " " ]; then
     	 	VALID="Y"
      		for rname in $RESERVED; do
-				if [ $UINPUT == $rname ]; then
-	  				echo -e "\n# El nombre $UINPUT se encuentra reservado\n" >&2
-	  				Loguear "WAR" "El nombre $UINPUT se encuentra reservado"
+				if [ "$GRUPO/$UINPUT" == $rname ]; then
+	  				echo -e "\n# El nombre $GRUPO$UINPUT se encuentra reservado\n" >&2
+	  				Loguear "WAR" "El nombre $GRUPO$UINPUT se encuentra reservado"
 	  				VALID="N"
 	 	 			break
 				fi
 		    done
       		## If name not reserved
      		if [ $VALID == "Y" ]; then
-        		echo "$UINPUT"
+        		echo "$GRUPO$UINPUT"
       		fi
     	else
       		VALID="Y"
