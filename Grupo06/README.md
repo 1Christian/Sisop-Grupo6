@@ -58,11 +58,17 @@ Luego de la descrompresión, se creará el directorio: "Grupo06", el cual conten
 
 4) Para llevar a cabo la instalación se puede ejecutar el script con ó sin opciones, las cuales se detallan a continaución: 
 
->	./Instalador.sh (Instalación básica)
+>	./Instalador.sh
+ 
+ (Instalación básica)
 
->	./Instalador.sh -t (Permite detectar si el sistema se encuentra instalado, en cuyo caso muestra la configuración de la instalación previa)
+>	./Instalador.sh -t 
 
->	./Instalador.sh -i (Permite instalar/reinstalar el programa, en caso de una reinstalación no se podrán definir nombres nuevos para los directorios, se deberán respetar los que ya se encuentren creados. Por otro lado permite la reparación de una instalación defectuosa)
+(Permite detectar si el sistema se encuentra instalado, en cuyo caso muestra la configuración de la instalación previa)
+
+>	./Instalador.sh -i 
+
+(Permite instalar/reinstalar el programa, en caso de una reinstalación no se podrán definir nombres nuevos para los directorios, se deberán respetar los que ya se encuentren creados. Por otro lado permite la reparación de una instalación defectuosa)
 
 5) Seguir los pasos indicados en la consola. Al finalizar la instalación, dentro del directorio en el que hayamos descromprimido el programa, quedará creada la estructura de directorios como se muestra a continuación:
 
@@ -105,6 +111,7 @@ Esto inicializará las variables del programa y seteará los permisos a todos lo
 10) El Demonio dispondrá de las opciones: Start y Stop para iniciar el proceso o detenerlo correspondientemente. El uso de las mismas está descripto a continuación:
 
 >	./bin/Demonio.sh start
+
 >	./bin/Demonio.sh stop
 
 
@@ -126,4 +133,5 @@ Esto inicializará las variables del programa y seteará los permisos a todos lo
 12) El programa cuanta con la posibilidad de iniciar o detener procesos mediante la ejecución del script: Utilidades.sh, p.e.:
 
 > ./bin/Utilidades.sh start Demonio.sh
+
 > ./bin/Utilidades.sh stop Demonio.sh
