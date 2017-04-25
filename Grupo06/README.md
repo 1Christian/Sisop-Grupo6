@@ -16,7 +16,7 @@
 - Git
 
 ################################
-#### INSTRUCCIIONES DE USO: ####
+#### INSTRUCCIONES DE USO: ####
 ################################
 
 **************
@@ -59,7 +59,9 @@ Luego de la descrompresión, se creará el directorio: "Grupo06", el cual conten
 4) Para llevar a cabo la instalación se puede ejecutar el script con ó sin opciones, las cuales se detallan a continaución: 
 
 >	./Instalador.sh (Instalación básica)
+
 >	./Instalador.sh -t (Permite detectar si el sistema se encuentra instalado, en cuyo caso muestra la configuración de la instalación previa)
+
 >	./Instalador.sh -i (Permite instalar/reinstalar el programa, en caso de una reinstalación no se podrán definir nombres nuevos para los directorios, se deberán respetar los que ya se encuentren creados. Por otro lado permite la reparación de una instalación defectuosa)
 
 5) Seguir los pasos indicados en la consola. Al finalizar la instalación, dentro del directorio en el que hayamos descromprimido el programa, quedará creada la estructura de directorios como se muestra a continuación:
