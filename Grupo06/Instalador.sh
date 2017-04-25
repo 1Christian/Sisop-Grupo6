@@ -4,9 +4,10 @@
 ################################################ REGION: VARIABLES ########################################
 ###########################################################################################################
 
-GRUPO=$(pwd)"/Grupo06/"
+GRUPO=$(pwd)"/"
+
 WHERE="Instalador"
-CONFDIR="$GRUPO""dirconf/"
+CONFDIR=$GRUPO"/dirconf/"
 DIRBIN="$GRUPO""bin/"
 DIRMAE="$GRUPO""mae/"
 DIRNOV="$GRUPO""nov/"
@@ -209,7 +210,8 @@ seteoVariables() {
 
 
 generarArchConfiguracion(){
-	ARCH_CNF="$CONFDIR""Instalep.conf"
+	ARCH_CNF="$CONFDIR""Instalador.conf"
+
 	echo "Creando archivo de configuración en $ARCH_CNF..."
 	Loguear "INF" "Creando archivo de configuración en $ARCH_CNF..."
 	fecha_y_hora=$(date "+%d/%m/%Y %H:%M:%S")
@@ -217,8 +219,8 @@ generarArchConfiguracion(){
 	echo "Actualizando la configuracion del sistema"
 	Loguear "INF" "Actualizando la configuracion del sistema"
 
+	echo "GRUPO=${GRUPO%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
 	echo "DIRLOG=${DIRLOG%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "GRUPO=${GRUPO=$USER%?}=$fecha_y_hora" >> "$ARCH_CNF"
 	echo "DIRBIN=${DIRBIN%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
 	echo "DIRMAE=${DIRMAE%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
 	echo "DIRNOV=${DIRNOV%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
@@ -226,7 +228,9 @@ generarArchConfiguracion(){
 	echo "DIRREP=${DIRREP%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
 	echo "DIRVAL=${DIRVAL%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
 	echo "DIRNOK=${DIRNOK%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
+
 }
+
 
 ###########################################################################################################
 ################################################ REGION: PROGRAMA #########################################
@@ -285,9 +289,15 @@ echo
 
 # CREACIÓN DE DIRECTORIOS
 
-mkdir --parents "$DIRBIN" "$DIRMAE" "$DIRNOV" "$DIROK" "$DIRNOK" "$DIRVAL" "$DIRREP" "$DIRLOG" "$CONFDIR"
+echo $CONFDIR
+mkdir --parents -m 777 "$DIRBIN" "$DIRMAE" "$DIRNOV" "$DIROK" "$DIRNOK" "$DIRVAL" "$DIRREP" "$DIRLOG" "$CONFDIR"
+
+mv ./datos/*.csv $DIRMAE
+rm -rf ./datos
 
 generarArchConfiguracion
+
+mv ./*.sh $DIRBIN
 
 echo
 echo "Instalacion CONCLUIDA"
@@ -299,7 +309,5 @@ echo "Fin de la instalación"
 Loguear "INF" "Fin de la instalación"
 
 mv $ARCH_LOG $CONFDIR
-
-cd "$DIRBIN"
 
 exit 0
