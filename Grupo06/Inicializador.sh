@@ -36,8 +36,7 @@ verificarPermisos() {
 
 }
 
-cd ..
-
+#cd ..
 GRUPO=$(pwd)
 ARCH_CONF="$GRUPO/dirconf/Instalador.conf"
 
@@ -49,13 +48,14 @@ do
 	valor=$(echo $linea | cut -f2 -d '=')
 
 	declare $nombre=$valor 
-	export nombre="${valor}"
+	export $nombre="${valor}"
 
 done < "$ARCH_CONF"
 
 export PATH="${GRUPO}:${GRUPO}/bin/:${PATH}"
 
 ARCH_LOG="$DIRLOG/Inicializador.Log"
+chmod +w $ARCH_LOG
 WHERE="Inicializador"
 
 Loguear "INF" "Se han seteado correctamente las siguientes variables: "
@@ -116,17 +116,21 @@ Loguear "INF" "$MENSAJE: $INPUT"
 
 if [ "$INPUT" == "Si" ]
 then
-	./Demonio&
+	./Start.sh Demonio.sh Inicializador
 	ID=$!
-	MENSAJE="Demonio corriendo bajo el no.: $ID"
-	Loguear "INF" "$MENSAJE"
-
-	echo $MENSAJE
-	echo "Para detenerlo ingrese kill $ID"
-	Loguear "INF" "Para detenerlo ingrese kill $ID"
+  	if [ $? == 0 ];
+        then
+    	  pid=$(pgrep -x -n "dummy" )
+  	  Loguear "INF" "Demonio corriendo bajo el no.: $pid"
+  	  echo $MENSAJE
+	  echo "Para detenerlo ingrese kill $ID"
+	  Loguear "INF" "Para detenerlo ingrese kill $ID"
+        else
+   	  Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
+        fi
 else
-	echo "Para iniciar Demonio manualmente ingrese ./Demonio.sh&"
-	Loguear "INF" "Para iniciar Demonio manualmente ingrese ./Demonio.sh&"
+	echo "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
+	Loguear "INF" "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
 fi
 
 export INITREADY=1

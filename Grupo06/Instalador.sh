@@ -5,9 +5,9 @@
 ###########################################################################################################
 
 GRUPO=$(pwd)"/"
-
+ARCH_CNF="Instalador.conf"
 WHERE="Instalador"
-CONFDIR=$GRUPO"dirconf/"
+CONFDIR="$GRUPO""dirconf/"
 DIRBIN="$GRUPO""bin/"
 DIRMAE="$GRUPO""mae/"
 DIRNOV="$GRUPO""nov/"
@@ -121,8 +121,7 @@ reinstalar(){
 chequeoVersionPerl(){
 	echo "Chequeo de la version de Perl"
 	Loguear "INF" "Chequeo de la version de Perl."
-	
-	if [ [ perl -v | grep -o -m 1 '[0-9]'| head -1 ] -lt 5 ]
+	if [[ $(perl -v|grep -o -m 1 '[0-9]'|head -1) -lt 5 ]]
 	then 
 		echo "La version es inferior a 5."
 		Loguear "WAR" "La version es inferior a 5."				
@@ -167,99 +166,108 @@ request_dirpath() {
 
 seteoVariables() {
 	#notAllow = "dirconf"
+	let salir=0
+	while [ $salir -ne 1 ];
+	do
+		echo "Seteo de variables globales"
+		Loguear "INF" "Seteo de variables globales"
 
-	echo "Seteo de variables globales"
-	Loguear "INF" "Seteo de variables globales"
+		echo "Ingrese un nuevo valor (en caso de carpetas, solo el nombre de la misma) o solo ENTER para mantener el valor por defecto."
+		Loguear "INF" "Ingrese un nuevo valor (en caso de carpetas, solo el nombre de la misma) o solo ENTER para mantener el valor por defecto."
+		echo
 
-	echo "Ingrese un nuevo valor (en caso de carpetas, solo el nombre de la misma) o solo ENTER para mantener el valor por defecto."
-	Loguear "INF" "Ingrese un nuevo valor (en caso de carpetas, solo el nombre de la misma) o solo ENTER para mantener el valor por defecto."
-	echo
+ 		## Request exec directory
+ 		DIRBIN=$(request_dirpath "Defina el directorio de Ejecutables ($DIRBIN): " $DIRBIN)
+		## Request file directory
+		DIRMAE=$(request_dirpath "Defina el directorio de Maestros y Tablas ($DIRMAE): " $DIRMAE)
+ 		## Request updates directory
+		DIRNOV=$(request_dirpath "Defina el directorio de Recepcion de Novedades ($DIRNOV): " $DIRNOV)
+ 		## Request accepted files directory
+ 		DIROK=$(request_dirpath "Defina el directorio de Archivos Aceptados ($DIROK): " $DIROK)
+		## Request processed files directory
+		DIRVAL=$(request_dirpath "Defina el directorio de Archivos Validados ($DIRVAL): " $DIRVAL)
+		## Request reports directory
+		DIRREP=$(request_dirpath "Defina el directorio de Reportes ($DIRREP): " $DIRREP)
+		## Request log directory
+		DIRLOG=$(request_dirpath "Defina el directorio de log ($DIRLOG): " $DIRLOG)
+		## Request rejected directory
+		DIRNOK=$(request_dirpath "Defina el directorio de rechazados ($DIRNOK): " $DIRNOK)
 
- 	## Request exec directory
- 	DIRBIN=$(request_dirpath "Defina el directorio de Ejecutables ($DIRBIN): " $DIRBIN)
+		clear
+		echo "DETALLE DE LA CONFIGURACIÓN:"
+		Loguear "INF" "DETALLE DE LA CONFIGURACIÓN:"
+		echo
+		echo "Directorio de Configuracion: $CONFDIR"
+		Loguear "INF" "Directorio de Configuracion: $CONFDIR"
+		echo "Directorio de Ejecutables: $DIRBIN"
+		Loguear "INF" "Directorio de Ejecutables: $CONFDIR"
+		echo "Directorio de Maestros: $DIRMAE"
+ 		Loguear "INF" "Directorio de Ejecutables: $CONFDIR"
+		echo "Directorio de Recepcion de Novedades: $DIRNOV"
+		Loguear "INF" "Directorio de Recepcion de Novedades: $CONFDIR"
+		echo "Directorio de Archivos Aceptados: $DIROK"
+		Loguear "INF" "Directorio de Archivos Aceptados: $CONFDIR"
+		echo "Directorio de Archivos Rechazados: $DIRNOK"
+		Loguear "INF" "Directorio de Archivos Rechazados: $CONFDIR"
+		echo "Directorio de Archivos de Reportes: $DIRREP"
+		Loguear "INF" "Directorio de Archivos de Reportes: $CONFDIR"
+		echo "Directorio de Archivos Validados: $DIRVAL"
+		Loguear "INF" "Directorio de Archivos Validados: $CONFDIR"
+		echo "Directorio de Archivos de Log: $DIRLOG"
+		Loguear "INF" "Directorio de Archivos de Log: $CONFDIR"
 
-	## Request file directory
-	DIRMAE=$(request_dirpath "Defina el directorio de Maestros y Tablas ($DIRMAE): " $DIRMAE)
- 	## Request updates directory
-	DIRNOV=$(request_dirpath "Defina el directorio de Recepcion de Novedades ($DIRNOV): " $DIRREC)
- 	## Request accepted files directory
- 	DIROK=$(request_dirpath "Defina el directorio de Archivos Aceptados ($DIROK): " $DIROK)
-	## Request processed files directory
-	DIRVAL=$(request_dirpath "Defina el directorio de Archivos Validados ($DIRVAL): " $DIRVAL)
-	## Request reports directory
-	DIRREP=$(request_dirpath "Defina el directorio de Reportes ($DIRREP): " $DIRREP)
-	## Request log directory
-	DIRLOG=$(request_dirpath "Defina el directorio de log ($DIRLOG): " $DIRLOG)
-	## Request rejected directory
-	DIRNOK=$(request_dirpath "Defina el directorio de rechazados ($DIRNOK): " $DIRNOK)
-
-	clear
-	echo "DETALLE DE LA CONFIGURACIÓN:"
-	Loguear "INF" "DETALLE DE LA CONFIGURACIÓN:"
-	echo
-	echo "Directorio de Configuracion: $CONFDIR"
-	Loguear "INF" "Directorio de Configuracion: $CONFDIR"
-	echo "Directorio de Ejecutables: $DIRBIN"
-	Loguear "INF" "Directorio de Ejecutables: $CONFDIR"
-	echo "Directorio de Maestros: $DIRMAE"
- 	Loguear "INF" "Directorio de Ejecutables: $CONFDIR"
-	echo "Directorio de Recepcion de Novedades: $DIRNOV"
-	Loguear "INF" "Directorio de Recepcion de Novedades: $CONFDIR"
-	echo "Directorio de Archivos Aceptados: $DIROK"
-	Loguear "INF" "Directorio de Archivos Aceptados: $CONFDIR"
-	echo "Directorio de Archivos Rechazados: $DIRNOK"
-	Loguear "INF" "Directorio de Archivos Rechazados: $CONFDIR"
-	echo "Directorio de Archivos de Reportes: $DIRREP"
-	Loguear "INF" "Directorio de Archivos de Reportes: $CONFDIR"
-	echo "Directorio de Archivos Validados: $DIRVAL"
-	Loguear "INF" "Directorio de Archivos Validados: $CONFDIR"
-	echo "Directorio de Archivos de Log: $DIRLOG"
-	Loguear "INF" "Directorio de Archivos de Log: $CONFDIR"
-
-	printf "Desea continuar con la instalacion? (S - N) "
-	read input
-	Loguear "INF" "Desea continuar con la instalacion? (S - N) $input"
-	if [ "$input" != "S" ]; then 
-		echo "Fin de la instalación"; 
-		Loguear "INF" "Fin de la instalación"
-		exit 1; 
-	fi
+		printf "Desea continuar con la instalacion? (S - N) "
+		read input
+		Loguear "INF" "Desea continuar con la instalacion? (S - N) $input"
+		if [ "$input" == "S" ]; then 
+			salir=1;
+		fi
+	done
 }
 
 
 generarArchConfiguracion(){
-	ARCH_CNF="$CONFDIR""Instalador.conf"
 
-	echo "Creando archivo de configuración en $ARCH_CNF..."
-	Loguear "INF" "Creando archivo de configuración en $ARCH_CNF..."
+	echo "Creando archivo de configuración en $CONFDIR$ARCH_CNF..."
+	Loguear "INF" "Creando archivo de configuración en $CONFDIR$ARCH_CNF..."
 	fecha_y_hora=$(date "+%d/%m/%Y %H:%M:%S")
 
 	echo "Actualizando la configuracion del sistema"
 	Loguear "INF" "Actualizando la configuracion del sistema"
 
-	echo "GRUPO=${GRUPO%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRLOG=${DIRLOG%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRBIN=${DIRBIN%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRMAE=${DIRMAE%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRNOV=${DIRNOV%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIROK=${DIROK%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRREP=${DIRREP%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRVAL=${DIRVAL%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
-	echo "DIRNOK=${DIRNOK%?}=$USER=$fecha_y_hora" >> "$ARCH_CNF"
+	echo "GRUPO=${GRUPO%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRLOG=${DIRLOG%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRBIN=${DIRBIN%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRMAE=${DIRMAE%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRNOV=${DIRNOV%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIROK=${DIROK%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRREP=${DIRREP%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRVAL=${DIRVAL%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
+	echo "DIRNOK=${DIRNOK%?}=$USER=$fecha_y_hora" >> "$CONFDIR""$ARCH_CNF"
 
 }
-
 
 ###########################################################################################################
 ################################################ REGION: PROGRAMA #########################################
 ###########################################################################################################
-
 echo "Chequeando instalacion previa"
 Loguear "INF" "Chequeando instalacion previa"
-> Instalador.log
 # Chequea instalacion previa
 if [ -e "$CONFDIR""$ARCH_CNF" ]
   then
+ 	if [ $1 != "-i" -a $1 != "-t" ]
+ 	then 
+  		echo "Parametro incorrecto."
+		Loguear "ERR" "Parametro incorrecto."
+		exit 1
+	fi
+  	while read linea
+	do
+		nombre=$(echo $linea | cut -f1 -d '=')
+		valor=$(echo $linea | cut -f2 -d '=')
+		declare $nombre=$valor 
+	done < "$CONFDIR$ARCH_CNF"
+
 	echo "Ya existe una instalación previa."
 	Loguear "WAR" "Ya existe una instalación previa."
 	echo "Directorio de Configuracion: $CONFDIR"
@@ -280,8 +288,8 @@ if [ -e "$CONFDIR""$ARCH_CNF" ]
 	Loguear "INF" "Directorio de Archivos Validados: $DIRVAL"
 	echo "Directorio de Archivos Rechazados: $DIRNOK"
 	Loguear "INF" "Directorio de Archivos Rechazados: $DIRNOK"
-	if [ $1 = "-i" ]; then reinstalar; exit 0; fi
-	if [ $1 = "-t" ]; then exit 0; fi
+	if [ $1 = "-i" ]; then reinstalar; exit 0
+	elif [ $1 = "-t" ]; then exit 0; fi
 fi
 
 if [ $1 = "-t" ]
@@ -289,6 +297,11 @@ if [ $1 = "-t" ]
 	echo "No existe una instalación previa."
 	Loguear "INF" "No existe una instalación previa."
 	exit 0
+elif [ $1 != "-i" ]
+  then 
+  	echo "Parametro incorrecto."
+	Loguear "ERR" "Parametro incorrecto."
+	exit 1
 fi
 
 echo
@@ -314,8 +327,8 @@ mv ./datos/*.csv $DIRMAE
 rm -rf ./datos
 
 generarArchConfiguracion
-
 mv ./*.sh $DIRBIN
+cp $DIRBIN/Instalador.sh $GRUPO
 
 echo
 echo "Instalacion CONCLUIDA"
@@ -327,5 +340,4 @@ echo "Fin de la instalación"
 Loguear "INF" "Fin de la instalación"
 
 mv $ARCH_LOG $CONFDIR
-
 exit 0

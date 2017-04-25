@@ -1,20 +1,20 @@
 #!/bin/bash
 ############Inicializacion la utilizo para probar, cuando se integre quitar################
-GRUPO="/home/nacho/Escritorio/Grupo06"
-DIRBIN=$GRUPO"/bin"
-DIRMAE=$GRUPO"/mae"
-DIRNOV=$GRUPO"/nov"
-DIROK=$GRUPO"/ok"
-DIRNOK=$GRUPO"/nok"
-DIRVAL=$GRUPO"/listos"
-DIRREP=$GRUPO"/rep"
-DIRLOG=$GRUPO"/log"
+#GRUPO="/home/nacho/Escritorio/Grupo06"
+#DIRBIN=$GRUPO"/bin"
+#DIRMAE=$GRUPO"/mae"
+#DIRNOV=$GRUPO"/nov"
+#DIROK=$GRUPO"/ok"
+#DIRNOK=$GRUPO"/nok"
+#DIRVAL=$GRUPO"/listos"
+#DIRREP=$GRUPO"/rep"
+#DIRLOG=$GRUPO"/log"
 #LOGEP=$DIRBIN"/Logep"
 #PROCEP=$DIRBIN"/Procep"
-MOVEP=$DIRBIN"/Mover"
+#MOVEP=$DIRBIN"/Mover"
 ############################################################################################
 BANCOS=$DIRMAE"/bamae.csv"
-ARCH_LOG=$DIRLOG"/demonio.log"
+ARCH_LOG=$DIRLOG"/Demonio.log"
 
 variables_ambiente=(GRUPO DIRBIN DIRMAE DIRNOV DIROK DIRVAL DIRLOG DIRREP)
 directorios_necesarios=(DIRMAE DIRNOV DIROK DIRNOK DIRLOG DIRBIN)
@@ -24,11 +24,11 @@ directorios_ejecucion=(DIRBIN)
 archivos_necesarios=(DUMMY MOVER BANCOS)
 archivos_ejecucion=(DUMMY MOVER)
 sleep_segs=5
-comando="Demonep"
+comando="demonio"
 
 function Loguear() {
   WHEN=$(date "+%Y%m%d %H:%M:%S")
-  WHERE="Demonep"
+  WHERE="demonio"
   echo "$WHEN-$USER-$WHERE-$1-$2" >> "$ARCH_LOG"  
 }
 
@@ -195,25 +195,26 @@ function es_fecha(){
 }
 
 function get_dias_mes(){
-  mes=$1
+  fecha=$1
+  mes=${fecha:4:2}
   case $mes in
-  01|03|05|07|08|10|12)
-      return 31
+  01|03|05|07|08|10|12|13)
+      echo "31"
     ;;
   04|06|09|11)
-      return 30
+      echo "30"
     ;;
   02)
-       return 28
+       echo "28"
     ;;    
-  *) return 0
+  *) echo "0"
    ;;
   esac
   return 0
 }
 
 function fecha_valida(){
-  let fecha_ahora=$(date +%Y%m%d);
+  let fecha_ahora=$(date +%Y%m%d)
   let fecha_arch=$1
   let dia_hoy=$(date +%d)
   let dia_arch=${fecha_arch:6:2}
@@ -222,15 +223,22 @@ function fecha_valida(){
   let diferencia_dias=$dia_hoy-$dia_arch
   let diferencia_meses=$mes_hoy-$mes_arch
   let cumple=0
-
-  if [ $mes_arch == $mes_hoy -a $diferencia_dias -le 15 -a $diferencia_dias -ge 0 ];
+  if [ $mes_hoy -eq 1 ];
+  then
+    $mes_hoy=13
+    if [ $mes_arch -eq 1 ];
+    then
+      $mes_arch=13
+    fi
+  fi
+  if [ $mes_arch -eq $mes_hoy -a $diferencia_dias -le 15 -a $diferencia_dias -ge 0 ];
   then
     cumple=1
-  elif [ $diferencia_meses -le 1 ];
+  elif [ $diferencia_meses -eq 1 ];
   then
-    let dias_mes_arch=get_dias_mes $mes_arch
-    dia_arch=$dias_mes_arch-$dia_arch
-    diferencia_dias=$dia_arch+$dia_hoy
+    let dias_mes_arch=$(get_dias_mes $fecha_arch)
+    let dia_arch=$dias_mes_arch-$dia_arch
+    let diferencia_dias=$dia_arch+$dia_hoy
     if [ $diferencia_dias -gt 15 ];
     then
       cumple=0
@@ -239,7 +247,6 @@ function fecha_valida(){
     fi
   fi
   es_fecha $fecha_arch
-
   if [ $? == 1 -a $fecha_ahora -ge $fecha_arch -a $cumple == 1 ]; then
     return 1
   fi
@@ -316,9 +323,14 @@ function ver_dummy(){
 function Dummy(){
   ubicacion=$PWD
   cd $DIRBIN
-  ./dummy.sh&
-  pid=$(pgrep -x -n "dummy" )
-  Loguear "INF" "dummy corriendo bajo el no.: $pid"
+  ./Start.sh dummy.sh Demonio
+  if [ $? == 0 ];
+    then
+    pid=$(pgrep -x -n "dummy" )
+    Loguear "INF" "dummy corriendo bajo el no.: $pid"
+  else
+    Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
+  fi
   cd $ubicacion    
 }
 
@@ -335,10 +347,10 @@ function main(){
   #Punto 1 OBLIGACIÓN DE INICIAR AMBIENTE ANTES DE EJECUTAR CUALQUIER COMANDO
   verificar_ambiente
   let contador_ciclos=1
-  #Punto 2 MANTENER UN CONTADOR DE CICLOS DE EJECUCIÓN DE DEMONEP .
+  #Punto 2 MANTENER UN CONTADOR DE CICLOS DE EJECUCIÓN DE DEMONIO .
   while ( true );
   do
-    Loguear "INF" "Demonep ciclo nro. $contador_ciclos"
+    Loguear "INF" "demonio ciclo nro. $contador_ciclos"
     #Punto 3.CHEQUEAR SI HAY ARCHIVOS EN EL DIRECTORIO $GRUPO/DIRNOV
     cd $DIRNOV
     archivos_aceptados=0
