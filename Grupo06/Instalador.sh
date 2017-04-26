@@ -34,7 +34,7 @@ Loguear() {
 reinstalar(){
 	echo "~ Inicio de la reinstalación del sistema ~"
 	Loguear "INF" "Inicio de la reinstalación del sistema"
-	if [ ! -d $ ]
+	if [ ! -d $CONFDIR ]
 	  then
 		echo "Directorio de Configuracion: $CONFDIR"
 		Loguear "INF" "Directorio de Configuracion: $CONFDIR"
@@ -255,6 +255,12 @@ Loguear "INF" "Chequeando instalacion previa"
 # Chequea instalacion previa
 if [ -e "$CONFDIR""$ARCH_CNF" ]
   then
+  	if [ $# -ne 1 ]
+	then 
+ 		echo "Parametro incorrecto."
+		Loguear "ERR" "Parametro incorrecto."
+		exit 1
+	fi
  	if [ $1 != "-i" -a $1 != "-t" ]
  	then 
   		echo "Parametro incorrecto."
@@ -292,16 +298,24 @@ if [ -e "$CONFDIR""$ARCH_CNF" ]
 	elif [ $1 = "-t" ]; then exit 0; fi
 fi
 
-if [ $1 = "-t" ]
+if [ $# -ne 1 ]
+	then 
+ 	echo "Parametro incorrecto."
+	Loguear "ERR" "Parametro incorrecto."
+	exit 1
+fi
+if [ $1 != "-i" -a $1 != "-t" ]
+then 
+ 	echo "Parametro incorrecto."
+	Loguear "ERR" "Parametro incorrecto."
+	exit 1
+fi
+
+if [ $1 == "-t" ]
   then 
 	echo "No existe una instalación previa."
 	Loguear "INF" "No existe una instalación previa."
 	exit 0
-elif [ $1 != "-i" ]
-  then 
-  	echo "Parametro incorrecto."
-	Loguear "ERR" "Parametro incorrecto."
-	exit 1
 fi
 
 echo
