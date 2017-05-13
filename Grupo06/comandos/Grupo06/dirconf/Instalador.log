@@ -1,0 +1,31 @@
+20170423 23:54:38-nacho-Instalador-INF-Inicio de instalación del sistema
+20170423 23:54:38-nacho-Instalador-INF-Chequeo de la version de Perl.
+20170423 23:54:38-nacho-Instalador-INF-La version es correcta.
+20170423 23:54:38-nacho-Instalador-INF-Seteo de variables globales
+20170423 23:54:38-nacho-Instalador-INF-Ingrese un nuevo valor (en caso de carpetas, solo el nombre de la misma) o solo ENTER para mantener el valor por defecto.
+20170423 23:54:46-nacho-Instalador-INF-Defina el directorio de Ejecutables (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/bin/):  
+20170423 23:55:37-nacho-Instalador-INF-Defina el directorio de Maestros y Tablas (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/mae/):  /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/bin/
+20170423 23:55:37-nacho-Instalador-WAR-El nombre /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/bin/ se encuentra reservado
+20170423 23:55:40-nacho-Instalador-INF-Defina el directorio de Maestros y Tablas (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/mae/):  
+20170423 23:55:41-nacho-Instalador-INF-Defina el directorio de Recepcion de Novedades (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/nov/):  
+20170423 23:55:41-nacho-Instalador-INF-Defina el directorio de Archivos Aceptados (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/ok/):  
+20170423 23:55:41-nacho-Instalador-INF-Defina el directorio de Archivos Validados (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/listos/):  
+20170423 23:55:42-nacho-Instalador-INF-Defina el directorio de Reportes (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/rep/):  
+20170423 23:55:43-nacho-Instalador-INF-Defina el directorio de log (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/log/):  
+20170423 23:55:44-nacho-Instalador-INF-Defina el directorio de rechazados (/home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/nok/):  
+20170423 23:55:44-nacho-Instalador-INF-DETALLE DE LA CONFIGURACIÓN:
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Configuracion: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Ejecutables: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Ejecutables: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Recepcion de Novedades: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Archivos Aceptados: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Archivos Rechazados: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Archivos de Reportes: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Archivos Validados: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:44-nacho-Instalador-INF-Directorio de Archivos de Log: /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/
+20170423 23:55:48-nacho-Instalador-INF-Desea continuar con la instalacion? (S - N) S
+20170423 23:55:48-nacho-Instalador-INF-Creando estructuras de directorio...
+20170423 23:55:48-nacho-Instalador-INF-Creando archivo de configuración en /home/nacho/Sisop-Grupo6/Grupo06/comandos/Grupo06/dirconf/Instalep.conf...
+20170423 23:55:48-nacho-Instalador-INF-Actualizando la configuracion del sistema
+20170423 23:55:48-nacho-Instalador-INF-Instalacion CONCLUIDA
+20170423 23:55:48-nacho-Instalador-INF-Fin de la instalación
