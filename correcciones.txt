@@ -1,0 +1,8 @@
+* Barra al final de los directorios (controlarlo)
+* controlar los duplicados
+* controlar dirconf reservado
+* Modificar el readme para que muestre el correcto proceso de inicialización
+* Archivos vacíos rompen el demonio
+* Comando mover: Duplicados aumentan ceros en lugar de subir la numeración
+
+

@@ -91,7 +91,7 @@ Luego de la descrompresión, se creará el directorio: "Grupo06", el cual conten
 
 6) Para comenzar el uso del sistema, ejecutar el comando Inicializador.sh presente en la carpeta de ejecutables (p.e.: /usr/temp/Grupo06/bin/Inicializador.sh) de la siguiente forma: 
 
->	./bin/Inicializador.sh
+> . ./bin/Inicializador.sh
 
 Esto inicializará las variables del programa y seteará los permisos a todos los archivos que lo requieran para su correcta ejecución y edición.
 
