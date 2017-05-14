@@ -36,6 +36,37 @@ verificarPermisos() {
 
 }
 
+verificarDemonio() {
+    MENSAJE="¿Desea efectuar la activación del Demonio? Si - No"
+    echo $MENSAJE
+    read INPUT
+
+    Loguear "INF" "$MENSAJE: $INPUT"
+
+    if [ "$INPUT" == "Si" ]
+    then
+    	./Start.sh Demonio.sh Inicializador
+    	ID=$!
+      	if [ $? == 0 ];
+            then
+        	  pid=$(pgrep -x -n "dummy" )
+      	  Loguear "INF" "Demonio corriendo bajo el no.: $pid"
+      	  echo $MENSAJE
+    	  echo "Para detenerlo ingrese kill $ID"
+    	  Loguear "INF" "Para detenerlo ingrese kill $ID"
+            else
+       	  Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
+            fi
+    elif [ "$INPUT" == "No" ]
+        then
+        echo "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
+        Loguear "INF" "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
+    else
+        echo "Respuesta inválida"
+        verificarDemonio
+    fi
+}
+
 #cd ..
 GRUPO=$(pwd)
 ARCH_CONF="$GRUPO/dirconf/Instalador.conf"
@@ -47,7 +78,7 @@ do
 	nombre=$(echo $linea | cut -f1 -d '=')
 	valor=$(echo $linea | cut -f2 -d '=')
 
-	declare $nombre=$valor 
+	declare $nombre=$valor
 	export $nombre="${valor}"
 
 done < "$ARCH_CONF"
@@ -74,7 +105,7 @@ if [ ! -e "$ARCH_CONF" ]
 then
 	echo "No existe el archivo de configuracion."
 	Loguear "ERR" "No existe el archivo de configuracion."
-	echo "Presione ENTER para salir."	
+	echo "Presione ENTER para salir."
 	read INPUT
 	Loguear "INF" "Presione ENTER para salir: $INPUT"
 	exit 0
@@ -108,29 +139,5 @@ Loguear "INF" "Permisos seteados correctamente."
 
 
 #Arranque del demonio
-MENSAJE="¿Desea efectuar la activación del Demonio? Si - No"
-echo $MENSAJE
-read INPUT
-
-Loguear "INF" "$MENSAJE: $INPUT"
-
-if [ "$INPUT" == "Si" ]
-then
-	./Start.sh Demonio.sh Inicializador
-	ID=$!
-  	if [ $? == 0 ];
-        then
-    	  pid=$(pgrep -x -n "dummy" )
-  	  Loguear "INF" "Demonio corriendo bajo el no.: $pid"
-  	  echo $MENSAJE
-	  echo "Para detenerlo ingrese kill $ID"
-	  Loguear "INF" "Para detenerlo ingrese kill $ID"
-        else
-   	  Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
-        fi
-else
-	echo "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
-	Loguear "INF" "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
-fi
-
+verificarDemonio
 export INITREADY=1
