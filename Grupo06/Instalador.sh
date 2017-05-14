@@ -164,6 +164,23 @@ request_dirpath() {
   	done
 }
 
+continuar() {
+
+    printf "Desea continuar con la instalacion? (S - N) "
+    read input
+
+    if [ "$input" == "S" ]; then
+        salir=1;
+    elif [ "$input" == "N" ]; then
+        salir=0;
+    else
+        echo "Respuesta inválida."
+        continuar
+    fi
+    Loguear "INF" "Desea continuar con la instalacion? (S - N) $input"
+
+}
+
 seteoVariables() {
 	#notAllow = "dirconf"
 	let salir=0
@@ -216,12 +233,8 @@ seteoVariables() {
 		echo "Directorio de Archivos de Log: $DIRLOG"
 		Loguear "INF" "Directorio de Archivos de Log: $CONFDIR"
 
-		printf "Desea continuar con la instalacion? (S - N) "
-		read input
-		Loguear "INF" "Desea continuar con la instalacion? (S - N) $input"
-		if [ "$input" == "S" ]; then 
-			salir=1;
-		fi
+
+		continuar
 	done
 }
 

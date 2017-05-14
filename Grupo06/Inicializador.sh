@@ -37,14 +37,15 @@ verificarPermisos() {
 }
 
 verificarDemonio() {
-    MENSAJE="¿Desea efectuar la activación del Demonio? Si - No"
+    MENSAJE="¿Desea efectuar la activación del Demonio? S - N"
     echo $MENSAJE
     read INPUT
 
     Loguear "INF" "$MENSAJE: $INPUT"
 
-    if [ "$INPUT" == "Si" ]
+    if [ "$INPUT" == "S" ]
     then
+        cd bin
     	./Start.sh Demonio.sh Inicializador
     	ID=$!
       	if [ $? == 0 ];
@@ -54,10 +55,11 @@ verificarDemonio() {
       	  echo $MENSAJE
     	  echo "Para detenerlo ingrese kill $ID"
     	  Loguear "INF" "Para detenerlo ingrese kill $ID"
-            else
+        else
        	  Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
-            fi
-    elif [ "$INPUT" == "No" ]
+        fi
+        cd ..
+    elif [ "$INPUT" == "N" ]
         then
         echo "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"
         Loguear "INF" "Para iniciar Demonio manualmente en background ingrese ./Start.sh Demonio.sh"

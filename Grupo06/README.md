@@ -56,11 +56,7 @@ Luego de la descrompresión, se creará el directorio: "Grupo06", el cual conten
 
 >	chmod +x ./Instalador.sh
 
-4) Para llevar a cabo la instalación se puede ejecutar el script con ó sin opciones, las cuales se detallan a continaución: 
-
->	./Instalador.sh
- 
- (Instalación básica)
+4) Para llevar a cabo la instalación se debe ejecutar el script con opciones, las cuales se detallan a continuación: 
 
 >	./Instalador.sh -t 
 
