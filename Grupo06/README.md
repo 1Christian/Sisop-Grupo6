@@ -34,7 +34,7 @@
 
 2) Descomprimir el archivo ejecutando el siguiente comando en la consola (ubicado en el directorio en el que se encuentra el archivo comprimido): 
 
->	$ tar -xvzf Grupo06.tgz
+>	$ tar -xvzf Grupo06.tar.gz
 
 Luego de la descrompresión, se creará el directorio: "Grupo06", el cual contendrá:
 
@@ -52,7 +52,7 @@ Luego de la descrompresión, se creará el directorio: "Grupo06", el cual conten
 ** INSTALACIÓN **
 *****************
 
-3) Otorgar el permiso de ejecución para el instalador, que luego de la extracción se encontrará en el directorio de ejecutables, p.e.: /bin, de la siguiente manera:
+3) Otorgar el permiso de ejecución para el instalador, que luego de la extracción se encontrará en el directorio Grupo06, de la siguiente manera:
 
 >	chmod +x ./Instalador.sh
 
@@ -72,15 +72,15 @@ Luego de la descrompresión, se creará el directorio: "Grupo06", el cual conten
 
 5) Seguir los pasos indicados en la consola. Al finalizar la instalación, dentro del directorio en el que hayamos descromprimido el programa, quedará creada la estructura de directorios como se muestra a continuación:
 
-- DIRCONF=/usr/temp/Grupo06/dirconf
-- BINARIOS=/usr/temp/Grupo06/bin
-- MAESTROS=/usr/temp/Grupo06/mae
-- NOVEDADES=/usr/temp/Grupo06/nov
-- ACEPTADOS=/usr/temp/Grupo06/ok
-- RECHAZADOS=/usr/temp/Grupo06/nok
-- VALIDADOS=/usr/temp/Grupo06/listos
-- REPORTES=/usr/temp/Grupo06/rep
-- LOG=/usr/temp/Grupo06/log
+- DIRCONF=/usr/temp/Grupo06/dirconf/
+- BINARIOS=/usr/temp/Grupo06/bin/
+- MAESTROS=/usr/temp/Grupo06/mae/
+- NOVEDADES=/usr/temp/Grupo06/nov/
+- ACEPTADOS=/usr/temp/Grupo06/ok/
+- RECHAZADOS=/usr/temp/Grupo06/nok/
+- VALIDADOS=/usr/temp/Grupo06/listos/
+- REPORTES=/usr/temp/Grupo06/rep/
+- LOG=/usr/temp/Grupo06/log/
 
 
 

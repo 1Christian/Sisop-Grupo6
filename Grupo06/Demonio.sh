@@ -255,11 +255,11 @@ function fecha_valida(){
 
 function archivo_tipo_contenido_valido(){
   archivo=$1
-  if [ "$archivo" != "" ]; 
+  if [ "$archivo" != "" ];
   then
     #Punto 4 VERIFICAR QUE EL ARCHIVO SEA UN ARCHIVO COMÚN, DE TEXTO .
     archivo_texto $archivo
-    if [ $? == 0 ]; 
+    if [ $? == 0 ];
     then
       Loguear "INF" "Archivo rechazado, motivo: no es un archivo de texto"
       return 0
@@ -274,7 +274,7 @@ function archivo_tipo_contenido_valido(){
 	return 1
       fi
     fi
-  fi    
+  fi
 }
 
 function archivo_nombre_args_valido(){
@@ -331,7 +331,7 @@ function Dummy(){
   else
     Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
   fi
-  cd $ubicacion    
+  cd $ubicacion
 }
 
 function mover(){
@@ -355,6 +355,11 @@ function main(){
     cd $DIRNOV
     archivos_aceptados=0
     if [ "$(ls -A)" ]; then
+        #  la variable $IFS se encarga de determinar cuál es el separador de campos, por default está seteada
+        # en espacios así que para evaluar archivos con espacios cambiamos la variable por un \n\b para que
+        # tome espacios
+        SAVEIFS=$IFS
+        IFS=$(echo -en "\n\b")
       for archivo in *
       do
         Loguear "INF" "Archivo detectado: $archivo"
@@ -366,15 +371,17 @@ function main(){
           then
             #Punto 9.ACEPTAR LOS ARCHIVOS CON NOMBRE VÁLIDO.
             Loguear "INF" "Archivo aceptado"
-            mover $DIRNOV/$archivo $DIROK
+            mover "$DIRNOV/$archivo" "$DIROK"
           else
             #Punto 10.RECHAZAR LOS ARCHIVOS INVÁLIDOS
-            mover $DIRNOV/$archivo $DIRNOK
+            mover "$DIRNOV/$archivo" "$DIRNOK"
           fi
         else
-          mover $DIRNOV/$archivo $DIRNOK
+          mover "$DIRNOV/$archivo" "$DIRNOK"
         fi
-      done  
+      done
+      # restauro IFS
+      IFS=$SAVEIFS
       ver_dummy
     fi
     ((contador_ciclos++))
