@@ -45,75 +45,75 @@ reinstalar(){
 	fi
 	if [ ! -d $DIRBIN ]
 	  then
-		echo "Directorio de Configuracion: $DIRBIN"
-		Loguear "INF" "Directorio de Configuracion: $DIRBIN"
+		echo "Directorio de Ejecutables: $DIRBIN"
+		Loguear "INF" "Directorio de Ejecutables: $DIRBIN"
 		mkdir --parents "$DIRBIN"
 	  else
-		echo "Directorio de Configuracion: $DIRBIN ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRBIN ya existe"
+		echo "Directorio de Ejecutables: $DIRBIN ya existe"
+		Loguear "INF" "Directorio de Ejecutables: $DIRBIN ya existe"
 	fi
 	if [ ! -d $DIRMAE ]
 	  then
-		echo "Directorio de Configuracion: $DIRMAE"
-		Loguear "INF" "Directorio de Configuracion: $DIRMAE"
+		echo "Directorio de Maestros y Tablas: $DIRMAE"
+		Loguear "INF" "Directorio de Maestros y Tablas: $DIRMAE"
 		mkdir --parents "$DIRMAE"
 	  else
-		echo "Directorio de Configuracion: $DIRMAE ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRMAE ya existe"
+		echo "Directorio de Maestros y Tablas: $DIRMAE ya existe"
+		Loguear "INF" "Directorio de Maestros y Tablas: $DIRMAE ya existe"
 	fi
 	if [ ! -d $DIRNOV ]
 	  then
-		echo "Directorio de Configuracion: $DIRNOV"
-		Loguear "INF" "Directorio de Configuracion: $DIRNOV"
+		echo "Directorio de Recepción de Novedades: $DIRNOV"
+		Loguear "INF" "Directorio de Recepción de Novedades: $DIRNOV"
 		mkdir --parents "$DIRNOV"
 	  else
-		echo "Directorio de Configuracion: $DIRNOV ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRNOV ya existe"
+		echo "Directorio de Recepción de Novedades: $DIRNOV ya existe"
+		Loguear "INF" "Directorio de Recepción de Novedades: $DIRNOV ya existe"
 	fi
 	if [ ! -d $DIROK ]
 	  then
-		echo "Directorio de Configuracion: $DIROK"
-		Loguear "INF" "Directorio de Configuracion: $DIROK"
+		echo "Directorio de Archivos Aceptados: $DIROK"
+		Loguear "INF" "Directorio de Archivos Aceptados: $DIROK"
 		mkdir --parents "$DIROK"
 	  else
-		echo "Directorio de Configuracion: $DIROK ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIROK ya existe"
+		echo "Directorio de Archivos Aceptados: $DIROK ya existe"
+		Loguear "INF" "Directorio de Archivos Aceptados: $DIROK ya existe"
 	fi
 	if [ ! -d $DIRNOK ]
 	  then
-		echo "Directorio de Configuracion: $DIRNOK"
-		Loguear "INF" "Directorio de Configuracion: $DIRNOK"
+		echo "Directorio de Rechazados: $DIRNOK"
+		Loguear "INF" "Directorio de Rechazados: $DIRNOK"
 		mkdir --parents "$DIRNOK"
 	  else
-		echo "Directorio de Configuracion: $DIRNOK ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRNOK ya existe"
+		echo "Directorio de Rechazados: $DIRNOK ya existe"
+		Loguear "INF" "Directorio de Rechazados: $DIRNOK ya existe"
 	fi
 	if [ ! -d $DIRVAL ]
 	  then
-		echo "Directorio de Configuracion: $DIRVAL"
-		Loguear "INF" "Directorio de Configuracion: $DIRVAL"
+		echo "Directorio de Archivos Validados: $DIRVAL"
+		Loguear "INF" "Directorio de Archivos Validados: $DIRVAL"
 		mkdir --parents "$DIRVAL"
 	  else
-		echo "Directorio de Configuracion: $DIRVAL ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRVAL ya existe"
+		echo "Directorio de Archivos Validados: $DIRVAL ya existe"
+		Loguear "INF" "Directorio de Archivos Validados: $DIRVAL ya existe"
 	fi
 	if [ ! -d $DIRREP ]
 	  then
-		echo "Directorio de Configuracion: $DIRREP"
-		Loguear "INF" "Directorio de Configuracion: $DIRREP"
+		echo "Directorio de Archivos de Reporte: $DIRREP"
+		Loguear "INF" "Directorio de Archivos de Reporte: $DIRREP"
 		mkdir --parents "$DIRREP"
 	  else
-		echo "Directorio de Configuracion: $DIRREP ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRREP ya existe"
+		echo "Directorio de Archivos de Reporte: $DIRREP ya existe"
+		Loguear "INF" "Directorio de Archivos de Reporte: $DIRREP ya existe"
 	fi
 	if [ ! -d $DIRLOG ]
 	  then
-		echo "Directorio de Configuracion: $DIRLOG"
-		Loguear "INF" "Directorio de Configuracion: $DIRLOG"
+		echo "Directorio de Log: $DIRLOG"
+		Loguear "INF" "Directorio de Log: $DIRLOG"
 		mkdir --parents "$DIRLOG"
 	  else
-		echo "Directorio de Configuracion: $DIRLOG ya existe"
-		Loguear "INF" "Directorio de Configuracion: $DIRLOG ya existe"
+		echo "Directorio de Log: $DIRLOG ya existe"
+		Loguear "INF" "Directorio de Log: $DIRLOG ya existe"
 	fi
 	
 }
@@ -140,13 +140,18 @@ request_dirpath() {
   	local VALID="N"  
   	while [ $VALID == "N" ]; do
 	    ## Prompt for directory
-	    read -p "$1" UINPUT 
+	    read -p "$1" UINPUT
+
+	    if ["${UINPUT: -1}" != "/" ]; then
+		UINPUT="$UINPUT/"
+	    fi
+
 	    Loguear "INF" "$1 $UINPUT"
 	    ## Validate user input
 	    if [ ! -z "$UINPUT" -a "$UINPUT" != " " ]; then
     	 	VALID="Y"
      		for rname in $RESERVED; do
-				if [ "$GRUPO/$UINPUT" == $rname ]; then
+				if [ "$GRUPO$UINPUT" == $rname ]; then
 	  				echo -e "\n# El nombre $GRUPO$UINPUT se encuentra reservado\n" >&2
 	  				Loguear "WAR" "El nombre $GRUPO$UINPUT se encuentra reservado"
 	  				VALID="N"
@@ -206,9 +211,9 @@ seteoVariables() {
 		## Request reports directory
 		DIRREP=$(request_dirpath "Defina el directorio de Reportes ($DIRREP): " $DIRREP)
 		## Request log directory
-		DIRLOG=$(request_dirpath "Defina el directorio de log ($DIRLOG): " $DIRLOG)
+		DIRLOG=$(request_dirpath "Defina el directorio de Log ($DIRLOG): " $DIRLOG)
 		## Request rejected directory
-		DIRNOK=$(request_dirpath "Defina el directorio de rechazados ($DIRNOK): " $DIRNOK)
+		DIRNOK=$(request_dirpath "Defina el directorio de Rechazados ($DIRNOK): " $DIRNOK)
 
 		clear
 		echo "DETALLE DE LA CONFIGURACIÓN:"
