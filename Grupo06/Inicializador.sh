@@ -61,7 +61,7 @@ verificarDemonio() {
         cd ..
     elif [ "$INPUT" == "N" ]
         then
-        echo "Para iniciar Demonio manualmente en background ejecute ./bin/Start.sh Demonio.sh"
+        echo "Para iniciar Demonio manualmente en background ingrese al directorio bin y ejecute ./Start.sh Demonio.sh"
         Loguear "INF" "Para iniciar Demonio manualmente en background ingrese al directorio bin y ejecute ./Start.sh Demonio.sh"
     else
         echo "Respuesta inválida"
