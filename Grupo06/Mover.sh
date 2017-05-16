@@ -36,7 +36,7 @@ else
 		fi
 		exit 1
 
-	elif [ -f $Dest/$Arch ]; then
+	elif [ -f "$Dest/$Arch" ]; then
 
 		if [ ! -d "$Dest/dpl" ]; then
 			mkdir "$Dest/dpl"
