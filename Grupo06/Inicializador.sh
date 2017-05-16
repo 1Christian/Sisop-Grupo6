@@ -87,7 +87,7 @@ done < "$ARCH_CONF"
 
 export PATH="${GRUPO}:${GRUPO}/bin/:${PATH}"
 
-ARCH_LOG="$DIRLOG/Inicializador.Log"
+ARCH_LOG="$DIRLOG/Inicializador.log"
 chmod +w $ARCH_LOG
 WHERE="Inicializador"
 
