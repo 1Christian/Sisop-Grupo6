@@ -4,7 +4,7 @@
 CmdInvoc=""
 Loguear() {
 	WHEN=$(date "+%Y%m%d %H:%M:%S")
-	echo "$WHEN-$USER-$3-$1-$2" >> "$DIRLOG/$3.LOG"  
+	echo "$WHEN-$USER-$3-$1-$2" >> "$DIRLOG/$3.log"
 }
 
 if [ $# -lt 2 -o $# -gt 3 ]; then
@@ -51,7 +51,7 @@ else
 		fi
 
 		cp "$Orig/$Arch" "$Dest/dpl/$Arch.$Contador"
-		 	Loguear "INF" "Se ha moveido el archivo" $CmdInvoc
+		 	Loguear "INF" "Se ha movido el archivo" $CmdInvoc
 		rm "$Orig/$Arch"
 		exit 0
 

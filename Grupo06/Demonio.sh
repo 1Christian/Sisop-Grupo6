@@ -337,7 +337,7 @@ function Dummy(){
 function mover(){
   ubicacion=$PWD
   cd $DIRBIN
-  ./Mover.sh "$1" "$2" "demonio"
+  ./Mover.sh "$1" "$2" "Demonio"
   cd $ubicacion
 }
 

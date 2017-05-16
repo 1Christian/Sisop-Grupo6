@@ -104,11 +104,16 @@ Esto inicializará las variables del programa y seteará los permisos a todos lo
 
 9) El Demonio es un proceso que una vez que se ejecute ciclicamente en busca de novedades para validar.
 
-10) El Demonio dispondrá de las opciones: Start y Stop para iniciar el proceso o detenerlo correspondientemente. El uso de las mismas está descripto a continuación:
+10) El Demonio dispondrá de las opciones: Start y Stop para iniciar el proceso o detenerlo correspondientemente. 
+El uso de las mismas se realiza desde el directorio bin del programa y está descripto a continuación:
 
->	./bin/Demonio.sh start
+Para iniciar manualmente el proceso Demonio
 
->	./bin/Demonio.sh stop
+>	./Start.sh Demonio.sh
+
+Para detener el proceso Demonio
+
+>	./Stop.sh Demonio.sh
 
 
 
@@ -118,16 +123,3 @@ Esto inicializará las variables del programa y seteará los permisos a todos lo
 ****************************************
 
 11) Se provee de la ejecución de un proceso invocado por el Demonio.sh que simule la validación de archivos.
-
-
-
-
-****************
-** UTILIDADES **
-****************
-
-12) El programa cuanta con la posibilidad de iniciar o detener procesos mediante la ejecución del script: Utilidades.sh, p.e.:
-
-> ./bin/Utilidades.sh start Demonio.sh
-
-> ./bin/Utilidades.sh stop Demonio.sh
