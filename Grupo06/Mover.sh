@@ -41,16 +41,9 @@ else
 		if [ ! -d "$Dest/dpl" ]; then
 			mkdir "$Dest/dpl"
 		fi
-		Contador=001
+		Contador=1
 		while [ -a "$Dest/dpl/$Arch.$Contador" ]; do
-			Contador = $[$Contador+1]
-			if [ $Contador -gt 9 ]; then
-				Contador=0$Contador
-			elif [ $Contador -gt 99 ]; then
-				Contador=$Contador
-			else
-				Contador=00$Contador
-			fi
+			Contador=$[$Contador+1]
 		done
 
 		if [ ! $CmdInvoc = "" ]; then

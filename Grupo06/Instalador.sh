@@ -142,7 +142,7 @@ request_dirpath() {
 	    ## Prompt for directory
 	    read -p "$1" UINPUT
 
-	    if ["${UINPUT: -1}" != "/" ]; then
+	    if [ ! -z "$UINPUT" -a "$UINPUT" != " " -a "${UINPUT: -1}" != "/" ]; then
 		UINPUT="$UINPUT/"
 	    fi
 
@@ -352,7 +352,7 @@ echo
 
 # CREACIÓN DE DIRECTORIOS
 
-echo $CONFDIR
+
 mkdir --parents -m 777 "$DIRBIN" "$DIRMAE" "$DIRNOV" "$DIROK" "$DIRNOK" "$DIRVAL" "$DIRREP" "$DIRLOG" "$CONFDIR"
 
 mv ./datos/*.csv $DIRMAE
