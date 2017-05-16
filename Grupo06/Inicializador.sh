@@ -52,16 +52,16 @@ verificarDemonio() {
             then
         	  pid=$(pgrep -x -n "Demonio.sh" )
       	  Loguear "INF" "Demonio corriendo bajo el no.: $pid"
-      	  echo $MENSAJE
-    	  echo "Para detenerlo ingrese kill $pid"
-    	  Loguear "INF" "Para detenerlo ingrese kill $pid"
+      	  echo "INF" "Demonio corriendo bajo el no.: $pid"
+    	  echo "Para detenerlo ejecute ./bin/Stop.sh Demonio.sh"
+    	  Loguear "INF" "Para detenerlo ejecute ./bin/Stop.sh Demonio.sh"
         else
        	  Loguear "WAR" "No se ejecuto el dummy porque ya esta corriendo"
         fi
         cd ..
     elif [ "$INPUT" == "N" ]
         then
-        echo "Para iniciar Demonio manualmente en background ingrese al directorio bin y ejecute ./Start.sh Demonio.sh"
+        echo "Para iniciar Demonio manualmente en background ejecute ./bin/Start.sh Demonio.sh"
         Loguear "INF" "Para iniciar Demonio manualmente en background ingrese al directorio bin y ejecute ./Start.sh Demonio.sh"
     else
         echo "Respuesta inválida"

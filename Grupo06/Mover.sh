@@ -24,16 +24,12 @@ else
 
 	if [ "$Orig" == "$Dest" ]; then
 
-		if [ ! $CmdInvoc = "" ]; then
-			Loguear "ERR" "Se ha producido un error al intentar mover el archivo" $CmdInvoc
-		fi
+		Loguear "ERR" "Se ha producido un error al intentar mover el archivo" $CmdInvoc
 		exit 1
 
 	elif [ ! -d "$Orig" -o ! -d "$Dest" ]; then
 
-		if [ ! $CmdInvoc = "" ]; then
-			Loguear "ERR" "Se ha producido un error al intentar mover el archivo" $CmdInvoc
-		fi
+		Loguear "ERR" "Se ha producido un error al intentar mover el archivo" $CmdInvoc
 		exit 1
 
 	elif [ -f "$Dest/$Arch" ]; then
@@ -45,13 +41,8 @@ else
 		while [ -a "$Dest/dpl/$Arch.$Contador" ]; do
 			Contador=$[$Contador+1]
 		done
-
-		if [ ! $CmdInvoc = "" ]; then
-			Loguear "ERR" "Se ha producido un error al intentar mover el archivo" $CmdInvoc
-		fi
-
 		cp "$Orig/$Arch" "$Dest/dpl/$Arch.$Contador"
-		 	Loguear "INF" "Se ha movido el archivo" $CmdInvoc
+		Loguear "INF" "Se ha movido el archivo a la carpeta de duplicados" $CmdInvoc
 		rm "$Orig/$Arch"
 		exit 0
 
