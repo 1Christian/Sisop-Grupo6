@@ -1,6 +1,6 @@
-* Barra al final de los directorios (controlarlo)
+* Barra al final de los directorios (controlarlo) -> HECHO
 * controlar los duplicados
-* controlar dirconf reservado
+* controlar dirconf reservado -> HECHO
 * Modificar el readme para que muestre el correcto proceso de inicialización -> HECHO
 * Durante la instalación. El mensaje: Desea continuar con la instalacion? (S - N) solo verifica char == "S". Cualquier otra cosa la toma como N, validar esto. -> HECHO
 * La pregunta "¿Desea efectuar la activación del Demonio? Si - No" solo compara con "Si" todo lo demás es un "No", validar y que tenga consistencia con la forma de preguntar anterior. -> HECHO
